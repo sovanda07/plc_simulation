@@ -1,4 +1,4 @@
-const Alarm = require("./models/Alarm");
+const Alarm = require("../models/Alarm");
 
 // Get alarms
 exports.getAlarms = async (req, res) => {
@@ -13,9 +13,9 @@ exports.getAlarms = async (req, res) => {
 // Update acknowledge
 exports.acknowledgeAlarm = async (req, res) => {
     try {
-        const alarm = await Alarm.findAndUpdate(
+        const alarm = await Alarm.findByIdAndUpdate(
             req.params.id,
-            { acknowledge: true},
+            { acknowledged: true},
             { new: true }
         );
         res.json(alarm);

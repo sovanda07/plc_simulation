@@ -34,6 +34,13 @@ io.on("connection", (socket) => {
 // Start simulator
 simulate(io);
 
+// Routes
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/machines", require("./routes/machines"));
+app.use("/api/alarm", require("./routes/alarm"));
+app.use("/api/historical", require("./routes/historical"));
+app.use("/api/users", require("./routes/users"));
+
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

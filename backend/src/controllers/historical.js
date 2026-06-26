@@ -1,5 +1,5 @@
 const Machine = require("../models/Machine");
-const SensorData = require("./models/SensorData");
+const SensorData = require("../models/SensorData");
 
 // Get machine history by id
 exports.getHistorical = async (req, res) => {

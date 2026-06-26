@@ -1,7 +1,7 @@
 // pre-filling database with initial data
 require('dotenv').config();
 const connectDB = require("./db");
-const Machine = require("./models/Machine");
+const Machine = require("../models/Machine");
 
 const machines = [
     { machineId: "A", name: "Machine A", location: "Bay 1", status: "Running" },
