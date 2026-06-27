@@ -1,0 +1,69 @@
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
+const NAV_ITEMS = [
+    { id: "dashboard", label: "Dashboard", icon: "⊞" },
+    { id: "monitor", label: "Real-Time", icon: "◉" },
+    { id: "alarms", label: "Alarms", icon: "△" },
+    { id: "historical", label: "Historical", icon: "📈" },
+    { id: "users", label: "Users", icon: "👤" },
+];
+
+const Sidebar = ({ activePage, onNavigate, alarmCount }) => {
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+    };
+
+    return (
+        <div className="sidebar">
+
+            {/* Logo */}
+            <div className="sidebar-logo">PLCMON</div>
+
+            {/* Nav */}
+            <nav className="sidebar-nav">
+                {NAV_ITEMS.map(item => (
+                    <button
+                        key={item.id}
+                        className={`nav-item ${activePage === item.id ? "active" : ""}`}
+                        onClick={() => onNavigate(item.id)}
+                    >
+                        <span>{item.icon}</span>
+                        <span>{item.label}</span>
+
+                        {/* Alarm badge */}
+                        {item.id === "alarms" && alarmCount > 0 && (
+                            <span style={{
+                                marginLeft: "auto",
+                                background: "#EF4444",
+                                color: "#fff",
+                                borderRadius: 10,
+                                fontSize: 10,
+                                fontWeight: 700,
+                                padding: "1px 6px",
+                            }}>
+                                {alarmCount}
+                            </span>
+                        )}
+                    </button>
+                ))}
+            </nav>
+
+            {/* Footer */}
+            <div className="sidebar-footer">
+                <div className="sidebar-user">{user?.username}</div>
+                <div className="sidebar-role">{user?.role}</div>
+                <button className="btn-signout" onClick={handleLogout}>
+                    Sign out
+                </button>
+            </div>
+
+        </div>
+    );
+};
+
+export default Sidebar;
