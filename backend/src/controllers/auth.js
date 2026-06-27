@@ -53,6 +53,10 @@ exports.register = async (req, res) => {
             return res.status(400).json({ message: "Password must be at least 8 characters long" });
         }
 
+        // Hash password 
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt);
+
         // Create user
         const user = new User({
             username,

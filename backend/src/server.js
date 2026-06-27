@@ -21,11 +21,14 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", require("./routes/auth"));
+app.use("/api/machines", require("./routes/machines"));
+app.use("/api/alarm", require("./routes/alarm"));
+app.use("/api/historical", require("./routes/historical"));
+app.use("/api/users", require("./routes/users"));
 
 // Socket.io connection
 io.on("connection", (socket) => {
     console.log("Client connected:", socket.id);
-
     socket.on("disconnect", () => {
         console.log("Client disconnected:", socket.id);
     });
@@ -33,13 +36,6 @@ io.on("connection", (socket) => {
 
 // Start simulator
 simulate(io);
-
-// Routes
-app.use("/api/auth", require("./routes/auth"));
-app.use("/api/machines", require("./routes/machines"));
-app.use("/api/alarm", require("./routes/alarm"));
-app.use("/api/historical", require("./routes/historical"));
-app.use("/api/users", require("./routes/users"));
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
