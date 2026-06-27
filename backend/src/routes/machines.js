@@ -6,6 +6,6 @@ const { authorizeRoles } = require("../middleware/role");
 
 router.get("/", protect, getMachines);
 router.get("/:id", protect, getMachine);
-router.patch("/:id/status", protect, requireRole("Admin"), updateMachine);
+router.patch("/:id/status", protect, authorizeRoles("Admin"), updateMachine);
 
 module.exports = router;
