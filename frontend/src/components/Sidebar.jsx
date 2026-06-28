@@ -2,11 +2,11 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const NAV_ITEMS = [
-    { id: "dashboard", label: "Dashboard", icon: "⊞" },
-    { id: "monitor", label: "Real-Time", icon: "◉" },
-    { id: "alarms", label: "Alarms", icon: "△" },
-    { id: "historical", label: "Historical", icon: "📈" },
-    { id: "users", label: "Users", icon: "👤" },
+    { id: "dashboard", label: "Dashboard", icon: "grid_view" },
+    { id: "monitor", label: "Real-Time", icon: "settings_input_antenna" },
+    { id: "alarms", label: "Alarms", icon: "circle_notifications" },
+    { id: "historical", label: "Historical", icon: "show_chart" },
+    { id: "users", label: "Users", icon: "admin_panel_settings" },
 ];
 
 const Sidebar = ({ activePage, onNavigate, alarmCount }) => {
@@ -22,7 +22,7 @@ const Sidebar = ({ activePage, onNavigate, alarmCount }) => {
         <div className="sidebar">
 
             {/* Logo */}
-            <div className="sidebar-logo">PLCMON</div>
+            <div className="sidebar-logo" onClick={() => onNavigate("dashboard")} style={{ cursor: "pointer" }}>PLCMON</div>
 
             {/* Nav */}
             <nav className="sidebar-nav">
@@ -32,10 +32,11 @@ const Sidebar = ({ activePage, onNavigate, alarmCount }) => {
                         className={`nav-item ${activePage === item.id ? "active" : ""}`}
                         onClick={() => onNavigate(item.id)}
                     >
-                        <span>{item.icon}</span>
+                        <span className="material-symbols-outlined" style={{ fontSize: 20 }}>
+                            {item.icon}
+                        </span>
                         <span>{item.label}</span>
 
-                        {/* Alarm badge */}
                         {item.id === "alarms" && alarmCount > 0 && (
                             <span style={{
                                 marginLeft: "auto",
