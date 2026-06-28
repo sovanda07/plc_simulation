@@ -5,12 +5,9 @@ const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true, trim: true },
     email: { type: String, required: true, unique: true, lowercase: true, trim: true},
     password: { type: String, required: true },
-    role: { type: String, enum: ["Admin", "Operator"], default: "Operator" }
+    role: { type: String, enum: ["Admin", "Operator"], default: "Operator" },
+    resetToken: { type: String }, 
+    resetTokenExpiry: { type: Date },
 }, { timestamps: true });
-
-userSchema.methods.comparePassword = function(password) {
-    const bcrypt = require('bcryptjs');
-    return bcrypt.compareSync(password, this.password);
-};
 
 module.exports = mongoose.model("User", userSchema);

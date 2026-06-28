@@ -1,7 +1,7 @@
 const Machine = require("../models/Machine");
 
 // Get all machines
-exports.getMachines = async (req, res) => {  // ← getMachines (plural)
+exports.getMachines = async (req, res) => {  
     try {
         const machines = await Machine.find();
         res.json(machines);
@@ -11,7 +11,7 @@ exports.getMachines = async (req, res) => {  // ← getMachines (plural)
 };
 
 // Get one machine by id
-exports.getMachine = async (req, res) => {   // ← getMachine (singular)
+exports.getMachine = async (req, res) => {   
     try {
         const machine = await Machine.findOne({ machineId: req.params.id });
         if (!machine) return res.status(404).json({ message: "Machine not found" });
@@ -29,7 +29,7 @@ exports.updateMachine = async (req, res) => {
             { status: req.body.status },
             { new: true }
         );
-        res.json(machine);  // ← res not req
+        res.json(machine); 
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

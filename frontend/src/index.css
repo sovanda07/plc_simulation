@@ -113,6 +113,15 @@ select.form-input {
     cursor: not-allowed;
 }
 
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.form-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* ── Error message ── */
 .error-message {
     font-size: 12px;
@@ -150,6 +159,18 @@ select.form-input {
 .sidebar-nav {
     flex: 1;
     padding: 12px 0;
+}
+
+.sidebar-role-admin {
+    font-size: 11px;
+    color: #F59E0B;
+    margin-bottom: 12px;
+}
+
+.sidebar-role-operator {
+    font-size: 11px;
+    color: #22C55E;
+    margin-bottom: 12px;
 }
 
 .nav-item {
@@ -401,4 +422,51 @@ select.form-input {
 
 .table tr:last-child td {
     border-bottom: none;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .card-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 8px;
+    }
+
+    .nav-item {
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        white-space: nowrap;
+    }
+
+    .nav-item.active {
+        border-left: none;
+        border-bottom-color: #00D4FF;
+    }
+
+    .topbar {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
 }

@@ -12,7 +12,7 @@ const machines = [
 const seed= async () => {
     await connectDB();
     await Machine.deleteMany();
-    await Machine.insertMany();
+    await Machine.insertMany(machines);
     console.log("Machines seeded");
     process.exit();
 }

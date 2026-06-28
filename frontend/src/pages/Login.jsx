@@ -19,6 +19,7 @@ const Login = () => {
 
         try {
             const res = await api.post("/api/auth/login", { email, password });
+            console.log("Login response:", res.data);
             login({ username: res.data.username, role: res.data.role }, res.data.token);
             navigate("/dashboard");
         } catch (err) {
@@ -75,6 +76,12 @@ const Login = () => {
                         style={{ color: "#00D4FF", cursor: "pointer" }}
                     >
                         Create one
+                    </span>
+                </div>
+
+                <div style={{ textAlign: "center", marginTop: 16, fontSize: 13, color: "#6B7280" }}>
+                    <span onClick={() => navigate("/forgot-password")} style={{ color: "#00D4FF", cursor: "pointer" }}>
+                        Forgot password?
                     </span>
                 </div>
 

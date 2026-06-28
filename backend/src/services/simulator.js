@@ -54,6 +54,7 @@ const simulate = async (io) => {
             // Send live data to frontend via Socket.io
             io.emit("sensor_update", {
                 machineId: id,
+                status: machine.status,
                 ...state[id],
             });
         }

@@ -1,56 +1,40 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
-import api from "../api/axios";
+import usePLCData from "../hooks/usePLCData";
+
+import DashboardPage from "./DashboardPage";
+import MonitorPage from "./MonitorPage";
+import AlarmsPage from "./AlarmsPage";
+import HistoricalPage from "./HistoricalPage";
+import UsersPage from "./UsersPage";
 
 const Dashboard = () => {
     const [activePage, setActivePage] = useState("dashboard");
-    const [machines, setMachines] = useState([]);
-    const [alarmCount, setAlarmCount] = useState(0);
+    const { machines, sensorData, alarms, unackedAlarms, setAlarms } = usePLCData(); 
 
-    useEffect(() => {
-        const fetchMachines = async () => {
-            try {
-                const res = await api.get("/api/machines");
-                setMachines(res.data);
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
-        const fetchAlarms = async () => {
-            try {
-                const res = await api.get("/api/alarms");
-                const unacked = res.data.filter(a => !a.acknowledged).length;
-                setAlarmCount(unacked);
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
-        fetchMachines();
-        fetchAlarms();
-    }, []);
+    const renderPage = () => {
+        switch (activePage) {
+            case "dashboard": return <DashboardPage machines={machines} sensorData={sensorData} />;
+            case "monitor": return <MonitorPage machines={machines} sensorData={sensorData} />;
+            case "alarms": return <AlarmsPage alarms={alarms} setAlarms={setAlarms} />; 
+            case "historical": return <HistoricalPage machines={machines} />;
+            case "users": return <UsersPage />;
+            default: return <DashboardPage machines={machines} sensorData={sensorData} />;
+        }
+    };
 
     return (
         <div className="main-layout">
             <Sidebar
                 activePage={activePage}
                 onNavigate={setActivePage}
-                alarmCount={alarmCount}
+                alarmCount={unackedAlarms}
             />
-
             <div className="main-content">
                 <Topbar machines={machines} />
-
                 <div className="page-content">
-                    <div className="page-title">Plant Overview</div>
-                    <div className="page-subtitle">Live data · updates every second</div>
-
-                    {/* Pages will go here */}
-                    <div style={{ color: "#6B7280", fontFamily: "monospace" }}>
-                        Active page: {activePage}
-                    </div>
+                    {renderPage()}
                 </div>
             </div>
         </div>

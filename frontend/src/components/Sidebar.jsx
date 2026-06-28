@@ -56,7 +56,7 @@ const Sidebar = ({ activePage, onNavigate, alarmCount }) => {
             {/* Footer */}
             <div className="sidebar-footer">
                 <div className="sidebar-user">{user?.username}</div>
-                <div className="sidebar-role">{user?.role}</div>
+                <div className={user?.role === "Admin" ? "sidebar-role-admin" : "sidebar-role-operator"}>{user?.role}</div>
                 <button className="btn-signout" onClick={handleLogout}>
                     Sign out
                 </button>

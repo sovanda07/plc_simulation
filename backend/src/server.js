@@ -22,7 +22,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/machines", require("./routes/machines"));
-app.use("/api/alarm", require("./routes/alarm"));
+app.use("/api/alarms", require("./routes/alarms"));
 app.use("/api/historical", require("./routes/historical"));
 app.use("/api/users", require("./routes/users"));
 

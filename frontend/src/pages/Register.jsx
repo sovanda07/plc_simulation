@@ -46,6 +46,7 @@ const Register = () => {
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder="johndoe"
                             className='form-input'
+                            disabled={loading}
                         />
                     </div>
 
@@ -57,6 +58,7 @@ const Register = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="abc@example.com"
                             className='form-input'
+                            disabled={loading}
                         />
                     </div>
 
@@ -68,6 +70,7 @@ const Register = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="at least 8 characters"
                             className='form-input'
+                            disabled={loading}
                         />
                     </div>
 
@@ -77,6 +80,7 @@ const Register = () => {
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                             className='form-input'
+                            disabled={loading}
                         >
                             <option value="Operator">Operator</option>
                             <option value="Admin">Admin</option>
