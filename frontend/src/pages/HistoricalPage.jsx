@@ -1,8 +1,10 @@
+import { useOutletContext } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import api from "../api/axios";
 
-const HistoricalPage = ({ machines }) => {
+const HistoricalPage = () => {
+    const { machines } = useOutletContext();
     const [selected, setSelected] = useState("A");
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(false);

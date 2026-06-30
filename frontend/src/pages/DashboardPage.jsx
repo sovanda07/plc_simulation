@@ -1,3 +1,5 @@
+import { useOutletContext } from "react-router-dom";
+
 const StatusBadge = ({ status }) => {
     const styles = {
         Running: { background: "#22C55E22", border: "1px solid #22C55E44", color: "#22C55E" },
@@ -26,7 +28,8 @@ const KPICard = ({ label, value, unit, icon, color, sub }) => (
     </div>
 );
 
-const DashboardPage = ({ machines, sensorData }) => {
+const DashboardPage = () => {
+    const { machines, sensorData } = useOutletContext();
     const totalProduction = Object.values(sensorData).reduce((sum, d) => sum + (d.productionCount || 0), 0);
     const avgTemp = machines.length > 0
         ? (Object.values(sensorData).reduce((sum, d) => sum + (d.temperature || 0), 0) / machines.length).toFixed(1)

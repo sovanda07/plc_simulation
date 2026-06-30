@@ -1,7 +1,9 @@
+import { useOutletContext } from "react-router-dom";
 import { useState } from "react";
 import api from "../api/axios";
 
-const AlarmsPage = ({ alarms, setAlarms }) => {
+const AlarmsPage = () => {
+    const { alarms, setAlarms } = useOutletContext();
     const [filter, setFilter] = useState("All");
     const [search, setSearch] = useState("");
     const [successMsg, setSuccessMsg] = useState("");

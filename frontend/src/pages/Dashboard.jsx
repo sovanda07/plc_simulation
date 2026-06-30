@@ -1,40 +1,28 @@
-import { useState } from "react";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import usePLCData from "../hooks/usePLCData";
 
-import DashboardPage from "./DashboardPage";
-import MonitorPage from "./MonitorPage";
-import AlarmsPage from "./AlarmsPage";
-import HistoricalPage from "./HistoricalPage";
-import UsersPage from "./UsersPage";
-
 const Dashboard = () => {
-    const [activePage, setActivePage] = useState("dashboard");
-    const { machines, sensorData, alarms, unackedAlarms, setAlarms } = usePLCData(); 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { machines, sensorData, alarms, unackedAlarms, setAlarms } = usePLCData();
 
-    const renderPage = () => {
-        switch (activePage) {
-            case "dashboard": return <DashboardPage machines={machines} sensorData={sensorData} />;
-            case "monitor": return <MonitorPage machines={machines} sensorData={sensorData} />;
-            case "alarms": return <AlarmsPage alarms={alarms} setAlarms={setAlarms} />; 
-            case "historical": return <HistoricalPage machines={machines} />;
-            case "users": return <UsersPage />;
-            default: return <DashboardPage machines={machines} sensorData={sensorData} />;
-        }
-    };
+    // Figure out which page is active from the URL
+    const activePage = location.pathname.split("/dashboard/")[1] || "dashboard";
 
     return (
         <div className="main-layout">
             <Sidebar
                 activePage={activePage}
-                onNavigate={setActivePage}
+                onNavigate={(page) => navigate(page === "dashboard" ? "/dashboard" : `/dashboard/${page}`)}
                 alarmCount={unackedAlarms}
             />
             <div className="main-content">
                 <Topbar machines={machines} />
                 <div className="page-content">
-                    {renderPage()}
+                    {/* Outlet renders the matched child route, pass data via context */}
+                    <Outlet context={{ machines, sensorData, alarms, setAlarms }} />
                 </div>
             </div>
         </div>

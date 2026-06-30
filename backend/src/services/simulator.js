@@ -13,6 +13,8 @@ let state = {
     C: { temperature: 95, speed: 85, current: 6.1, energy: 5.1, productionCount: 201 },
 };
 
+let lastAlarmTime = { A: 0, B: 0, C: 0 };
+
 const simulate = async (io) => {
     const machines = await Machine.find();
 
@@ -32,15 +34,15 @@ const simulate = async (io) => {
             if (machine.status === "Alarm") {
                 state[id].temperature = clamp(state[id].temperature + rand(-0.5, 1.2), 85, 105);
 
-                // Auto generate alarm if temperature is critical
-                if (state[id].temperature > 100) {
+                const now = Date.now();
+                if (state[id].temperature > 100 && now - lastAlarmTime[id] > 30000) {
+                    lastAlarmTime[id] = now;
+
                     const alarm = await Alarm.create({
                         machineId: id,
                         message: "Critical Overheat",
                         severity: "Critical",
                     });
-
-                    // Send alarm to frontend via Socket.io
                     io.emit("new_alarm", alarm);
                 }
             }

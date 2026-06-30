@@ -1,6 +1,8 @@
+import { useOutletContext } from "react-router-dom";
 import { useState } from "react";
 
-const MonitorPage = ({ machines, sensorData }) => {
+const MonitorPage = () => {
+    const { machines, sensorData } = useOutletContext();
     const [selected, setSelected] = useState("A");
     const data = sensorData[selected] || {};
 
