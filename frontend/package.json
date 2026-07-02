@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "vite preview --port 3000 --host",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -15,6 +16,7 @@
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.0",
     "recharts": "^3.9.0",
+    "serve": "^14.2.6",
     "socket.io-client": "^4.8.3"
   },
   "devDependencies": {
