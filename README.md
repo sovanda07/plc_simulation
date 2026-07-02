@@ -178,19 +178,6 @@ The app is available at `http://localhost:5173`. Nginx is configured with a SPA 
 
 ---
 
-## Roadmap
-
-- [x] Backend API with JWT auth and RBAC
-- [x] PLC data simulator with Socket.io broadcast
-- [x] All six dashboard pages
-- [x] Nested routing (each page has its own URL)
-- [x] Dockerize frontend and backend with Docker Compose
-- [ ] Deploy to a live URL (Render / Railway / VPS + Nginx reverse proxy)
-- [ ] Real PLC integration via Modbus TCP (Mitsubishi, Siemens, Allen-Bradley)
-- [ ] OPC UA support
-
----
-
 ## License
 
 MIT
