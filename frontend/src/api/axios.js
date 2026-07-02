@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({ 
-    baseURL: "http://localhost:5000" 
+    baseURL: "https://tender-prosperity-production-9e40.up.railway.app" 
 });
 
 api.interceptors.request.use((config) => {
